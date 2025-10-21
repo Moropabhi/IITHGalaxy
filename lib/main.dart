@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                     margin: EdgeInsets.all(0.0),
                 child: Expanded(
-                  child: ClipRRect(borderRadius: BorderRadiusGeometry.circular(20.0),child: Stack(alignment: AlignmentGeometry.center,children: [Image.asset(weather,fit: BoxFit.fill,height: MediaQuery.of(context).size.height/4,width: MediaQuery.of(context).size.width/2),Text("36C",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 50),)])),
+                  child: ClipRRect(borderRadius: BorderRadiusGeometry.circular(20.0),child: Stack(alignment: AlignmentGeometry.center,children: [Image.asset(weather,fit: BoxFit.fill,height: MediaQuery.of(context).size.height/4,width: MediaQuery.of(context).size.width/2),Text("40C",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 50),)])),
                 
                 ),
                   ),
