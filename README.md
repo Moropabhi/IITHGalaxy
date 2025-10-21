@@ -1,16 +1,17 @@
-# iithgalaxy
+# IITHgalaxy
 
-A new Flutter project.
+A Flutter project focusing on the students basic requirements.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Running locally
 
-A few resources to get you started if this is your first Flutter project:
+1. Install the following packages on your machine with instruction on their official websites
+    i) dart 
+    ii) flutter(either through vscode(recommended) or through manually)
+    iii) (for Android) Android Studio and SDK (follow flutter instructions)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    iv) run command the project with command "run flutter"
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contributor
+1) Abhisek Mohapatra
