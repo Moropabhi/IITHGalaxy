@@ -32,7 +32,7 @@ class _IITHSpecialWidget extends State<IITHSpecialWidget> {
               ),
               SizedBox(height: 50),
             ] +
-            c.getListCard(),
+            c.getListCard(context),
       ),
     );
   }
@@ -50,7 +50,7 @@ class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
   Widget build(BuildContext context) {
     var c = IITHSpecial();
     c.fetchData();
-    var l = c.getsmallListCard();
+    var l = c.getsmallListCard(context);
     int n = 2;
     if (l.length > n) {
       l = List.generate(n, (i) {

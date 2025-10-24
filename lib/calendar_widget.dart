@@ -30,7 +30,7 @@ class _CalenderWidget extends State<CalenderWidget> {
                 ),
               ),
               SizedBox(height: 50),
-        ]+c.getListCard(),
+        ]+c.getListCard(context),
       ),
     );
   }
@@ -48,8 +48,8 @@ class _CalenderSmallWidget extends State<CalenderSmallWidget> {
   Widget build(BuildContext context) {
     var c = Calender();
     c.fetchData();
-    var l = c.getsmallListCard();
-    int n = 4;
+    var l = c.getsmallListCard(context);
+    int n = 3;
     if(l.length>n)l=List.generate(n, (i){return l[i];});
     return Container(
       margin: EdgeInsets.all(10),

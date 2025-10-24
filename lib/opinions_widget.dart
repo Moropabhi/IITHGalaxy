@@ -31,9 +31,9 @@ class _OpinionsWidget extends State<OpinionsWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 50,),
             ] +
-            c.getListCard(),
+            c.getListCard(context),
       ),
     );
   }

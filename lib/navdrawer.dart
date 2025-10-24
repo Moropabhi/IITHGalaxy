@@ -26,6 +26,7 @@ class NavDrawer extends StatelessWidget {
 
   static void setThePage(BuildContext context,MaterialPageRoute<void> route,)
   {
+                  
                   Navigator.pop(context);
                   Navigator.push(context, route);
                   current=-1;

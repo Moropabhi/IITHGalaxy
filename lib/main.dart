@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iithgalaxy/iithspecials_widget.dart';
-import 'package:iithgalaxy/navdrawer.dart';
 import 'home_body.dart';
-import 'calendar_widget.dart';
 import 'myPage.dart';
+import 'edit_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyPage(body: HomeBody(),),
+      home: const MyPage(body: EditWidget(),),
     );
   }
 }

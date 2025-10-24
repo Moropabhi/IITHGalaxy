@@ -10,17 +10,15 @@ abstract class DataView{
   String getDesc();
 }
 
-class ViewWidget extends StatefulWidget {
-  final DataView v;
-  const ViewWidget({super.key,required this.v});
+class EditWidget extends StatefulWidget {
+  const EditWidget({super.key});
 
   @override
-  State<ViewWidget> createState() => _ViewWidget(v);
+  State<EditWidget> createState() => _EditWidget();
 }
 
-class _ViewWidget extends State<ViewWidget> {
-  final DataView v;
-  _ViewWidget(this.v);
+class _EditWidget extends State<EditWidget> {
+  _EditWidget();
   @override
   Widget build(BuildContext context) {
 
@@ -30,7 +28,7 @@ class _ViewWidget extends State<ViewWidget> {
         children:
             <Widget>[
               Text(
-                v.getName(),
+                "Editing Space",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -43,7 +41,7 @@ class _ViewWidget extends State<ViewWidget> {
                 children: [
                   Flexible(
                     child: Text(
-                      " by ${v.getAuthor()} ",
+                      " by \${v.getAuthor()} ",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Colors.white,
@@ -53,7 +51,7 @@ class _ViewWidget extends State<ViewWidget> {
                   ),
                     Flexible(
                       child: Text(
-                      v.getTime()??"",
+                      "v.getTime()",
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: Colors.white,
@@ -64,7 +62,7 @@ class _ViewWidget extends State<ViewWidget> {
                 ],
               ),
                 Text(
-                v.getDesc(),
+                "v.getDesc()",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
