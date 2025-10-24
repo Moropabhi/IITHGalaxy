@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_body.dart';
+import 'calendar_widget.dart';
 
 var icon = "assets/bitmap.png";
 var weather = "assets/weather.jpg";
@@ -15,19 +16,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'IITHGalaxy',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -65,21 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       body: const HomeBody(),
-      
+      //body:CalenderWidget(),
       backgroundColor: Colors.black,
     );
-  }
-}
-
-class Topbar extends AppBar {
-  Topbar({super.key})
-    : super(
-        leading: Image.network(
-          "https://imgs.search.brave.com/qolZCSaVxzhn2SeKeUwL8zS9qY6kXbOyLTgOmmCmXPk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbmZpbmRlci5j/b20vZGF0YS9mYW1p/bHkvcHJldmlld3Mv/cHJldmlldy90ZWVu/eWljb25zLXNvbGlk/LnBuZz9pbmRleGVk/PTE3NDM1MjEyMjk",
-        ),
-      ) {}
-  @override
-  Widget build(BuildContext context) {
-    return this;
   }
 }

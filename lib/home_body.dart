@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'calendar_widget.dart';
 import 'weather_widget.dart';
 import 'jotdown_widget.dart';
 
@@ -38,15 +39,7 @@ Container(
                     JotDownWidget(),
                   ],
                 ),
-                Flexible(
-                  flex: 3,
-                  fit: FlexFit.tight,
-                  child: Container(
-                    //padding: EdgeInsets.all(50),
-                        color: Colors.amber,
-                        child: Text("hi"),
-                  ),
-                ),
+                Flexible(fit: FlexFit.tight,flex: 3,child: CalenderSmallWidget()),
               ],
             ),
             Flexible(
