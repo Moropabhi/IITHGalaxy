@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iithgalaxy/iithspecials_widget.dart';
 import 'myPage.dart';
 import 'home_body.dart';
 import 'calendar_widget.dart';
+import 'opinions_widget.dart';
 
 int current= -1;
 class NavDrawer extends StatelessWidget {
@@ -20,7 +20,7 @@ class NavDrawer extends StatelessWidget {
     MaterialPageRoute<void>(builder: (context){return MyPage(body:  HomeBody());}),
     MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}),
     MaterialPageRoute<void>(builder: (context){return MyPage(body:  IITHSpecialWidget());}),
-    MaterialPageRoute<void>(builder: (context){return MyPage(body:  HomeBody());}),
+    MaterialPageRoute<void>(builder: (context){return MyPage(body:  OpinionsWidget());}),
     MaterialPageRoute<void>(builder: (context){return MyPage(body:  HomeBody());}),
   ];
 
