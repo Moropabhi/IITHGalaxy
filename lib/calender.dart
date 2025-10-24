@@ -182,4 +182,5 @@ List<Widget> getsmallListCard(BuildContext context) {
       
     ];
   }
+
 }
