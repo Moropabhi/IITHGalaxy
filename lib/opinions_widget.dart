@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iithgalaxy/opinions.dart';
-import 'opinions.dart';
-import 'navdrawer.dart';
-import 'myPage.dart';
 
 class OpinionsWidget extends StatefulWidget {
   const OpinionsWidget({super.key});

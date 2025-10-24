@@ -33,17 +33,17 @@ class Opinion extends DataView{
   
   @override
   String getAuthor() {
-    return this.authorDetails;
+    return authorDetails;
   }
   
   @override
   String getDesc() {
-    return this.detail;
+    return detail;
   }
   
   @override
   String getName() {
-    return this.name;
+    return name;
   }
   
   @override

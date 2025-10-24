@@ -67,7 +67,7 @@ class _WeatherWidget extends State<WeatherWidget> {
     setState(() {
     var t = DateTime.now().toLocal(); 
     date = "${t.day}/${t.month}/${t.year}";
-    time = "${t.hour}:${t.minute>=10?t.minute:("0${t.minute}")}";
+    time = "${t.hour>=10?t.hour:("0${t.hour}")}:${t.minute>=10?t.minute:("0${t.minute}")}";
     });
   }
 
