@@ -57,8 +57,8 @@ class _WeatherWidget extends State<WeatherWidget> {
     getWeather();
     var t = DateTime.now().toLocal(); 
     date = "${t.day}/${t.month}/${t.year}";
-    time = "${t.hour}:${t.minute>=10?t.minute:("0"+t.minute.toString())}";
-    Timer.periodic(Duration(seconds: 10),setTime);
+    time = "${t.hour}:${t.minute>=10?t.minute:("0${t.minute}")}";
+    Timer.periodic(Duration(seconds: 5),setTime);
     super.initState();
   }
   void setTime(Timer t)

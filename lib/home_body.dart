@@ -43,7 +43,7 @@ Container(
                 Flexible(fit: FlexFit.tight,flex: 3,child: CalenderSmallWidget()),
               ],
             ),
-            IITHSpecialWidget()
+            IITHSpecialSmallWidget()
           ],
         ),
       );

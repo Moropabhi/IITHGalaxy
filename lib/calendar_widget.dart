@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iithgalaxy/navdrawer.dart';
 import 'calender.dart';
+import 'myPage.dart';
 
 class CalenderWidget extends StatefulWidget {
   const CalenderWidget({super.key});
@@ -55,7 +57,10 @@ class _CalenderSmallWidget extends State<CalenderSmallWidget> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+
+              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
+            },
             clipBehavior: Clip.hardEdge,
             
             child: Text("Events", textAlign: TextAlign.center),

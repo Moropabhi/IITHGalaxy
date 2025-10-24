@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'iithspecials.dart';
+import 'navdrawer.dart';
+import 'myPage.dart';
 
 class IITHSpecialWidget extends StatefulWidget {
   const IITHSpecialWidget({super.key});
@@ -49,7 +51,7 @@ class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
     var c = IITHSpecial();
     c.fetchData();
     var l = c.getsmallListCard();
-    int n = 1;
+    int n = 2;
     if (l.length > n) {
       l = List.generate(n, (i) {
         return l[i];
@@ -62,7 +64,9 @@ class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
         children:
             <Widget>[
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  IITHSpecialWidget());}));
+                },
                 clipBehavior: Clip.hardEdge,
 
                 child: Text("Events", textAlign: TextAlign.center),
