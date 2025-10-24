@@ -24,6 +24,7 @@ class _WeatherWidget extends State<WeatherWidget> {
 
   Future<void> getWeather() async
   {
+        if(!mounted)return;
     var latitude = 17.598911, longitude = 78.125885; 
     var url = Uri.parse(
       'https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=Asia/Kolkata',
@@ -62,7 +63,7 @@ class _WeatherWidget extends State<WeatherWidget> {
   }
   void setTime(Timer t)
   {
-
+    if(!mounted)return;
     setState(() {
     var t = DateTime.now().toLocal(); 
     date = "${t.day}/${t.month}/${t.year}";

@@ -20,7 +20,7 @@ class _IITHSpecialWidget extends State<IITHSpecialWidget> {
         children:
             <Widget>[
               Text(
-                "Events",
+                "IITHSpecials",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -50,10 +50,11 @@ class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
     c.fetchData();
     var l = c.getsmallListCard();
     int n = 1;
-    if (l.length > n)
+    if (l.length > n) {
       l = List.generate(n, (i) {
         return l[i];
       });
+    }
     return Container(
       margin: EdgeInsets.all(10),
       child: Column(

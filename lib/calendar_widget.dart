@@ -18,10 +18,16 @@ class _CalenderWidget extends State<CalenderWidget> {
       margin: EdgeInsets.all(10),
       child: ListView(
         children: <Widget>[
-          ElevatedButton(
-            onPressed: () {},
-            child: Text("Events", textAlign: TextAlign.center),
-          ),
+          Text(
+                "Events",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 50),
         ]+c.getListCard(),
       ),
     );
