@@ -17,12 +17,20 @@ class _IITHSpecialWidget extends State<IITHSpecialWidget> {
     return Container(
       margin: EdgeInsets.all(10),
       child: ListView(
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: () {},
-            child: Text("Events", textAlign: TextAlign.center),
-          ),
-        ]+c.getListCard(),
+        children:
+            <Widget>[
+              Text(
+                "Events",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 50),
+            ] +
+            c.getListCard(),
       ),
     );
   }
@@ -41,20 +49,25 @@ class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
     var c = IITHSpecial();
     c.fetchData();
     var l = c.getsmallListCard();
-    int n = 4;
-    if(l.length>n)l=List.generate(n, (i){return l[i];});
+    int n = 1;
+    if (l.length > n)
+      l = List.generate(n, (i) {
+        return l[i];
+      });
     return Container(
       margin: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          ElevatedButton(
-            onPressed: () {},
-            clipBehavior: Clip.hardEdge,
-            
-            child: Text("Events", textAlign: TextAlign.center),
-          ),
-        ]+l,
+        children:
+            <Widget>[
+              ElevatedButton(
+                onPressed: () {},
+                clipBehavior: Clip.hardEdge,
+
+                child: Text("Events", textAlign: TextAlign.center),
+              ),
+            ] +
+            l,
       ),
     );
   }

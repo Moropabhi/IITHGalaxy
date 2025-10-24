@@ -1,6 +1,11 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 
+String wrapUp(String s, int n)
+{
+  return s.length>n?"${s.substring(0,n)}...":s;
+}
+
 enum ItemType{
   others,papers,projects,ideas,researchUpdates
 }
@@ -67,14 +72,12 @@ class IITHSpecial {
                   fontSize: 20,
                   ),
               ),
-              Flexible(
-                child: Text(
-                  "${x.name} by ${x.authorDetails}",
-                  style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
-                ),
+              Text(
+                "${wrapUp(x.name,30)} \nby ${wrapUp(x.authorDetails,30)}",
+                style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
               ),
               Text(
-                x.detail.length>50?"${x.detail.substring(0,50)}...":x.detail,
+                wrapUp(x.detail,300),
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
               ),
@@ -92,7 +95,7 @@ List<Widget> getsmallListCard() {
         clipBehavior: Clip.hardEdge,
         child: Container(
           margin: EdgeInsets.all(10),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 10,
@@ -105,14 +108,12 @@ List<Widget> getsmallListCard() {
                   fontSize: 20,
                   ),
               ),
-              Flexible(
-                child: Text(
-                  "${x.name} by ${x.authorDetails}",
-                  style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
-                ),
+              Text(
+                "${wrapUp(x.name,20)} \tby ${wrapUp(x.authorDetails,20)}",
+                style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
               ),
               Text(
-                x.detail.length>20?"${x.detail.substring(0,20)}...":x.detail,
+                wrapUp(x.detail,20),
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
               ),
@@ -125,6 +126,7 @@ List<Widget> getsmallListCard() {
 
   void fetchData() {
     items = [
+      Item(name: "Robotoic Arm"*8, type: ItemType.projects, authorDetails: "Me and others"*90, detail: "we made this arm."*90),
       Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
       Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
       Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
