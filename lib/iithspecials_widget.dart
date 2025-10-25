@@ -12,6 +12,14 @@ class IITHSpecialWidget extends StatefulWidget {
 }
 
 class _IITHSpecialWidget extends State<IITHSpecialWidget> {
+
+
+  @override
+  void initState() {
+    IITHSpecial.listenToItems();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var c = IITHSpecial();
@@ -52,6 +60,14 @@ class IITHSpecialSmallWidget extends StatefulWidget {
 }
 
 class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
+
+
+
+  @override
+  void initState() {
+    IITHSpecial.listenToItems();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var c = IITHSpecial();

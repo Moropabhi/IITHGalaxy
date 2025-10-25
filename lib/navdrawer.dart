@@ -14,14 +14,12 @@ class NavDrawer extends StatelessWidget {
     "Calendar",
     "IITHSpecials",
     "Opinion.IITH",
-    "Settings",
   ];
   final methods = [
-    MaterialPageRoute<void>(builder: (context){return MyPage(body:  HomeBody());}),
-    MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}),
-    MaterialPageRoute<void>(builder: (context){return MyPage(body:  IITHSpecialWidget());}),
-    MaterialPageRoute<void>(builder: (context){return MyPage(body:  OpinionsWidget());}),
-    MaterialPageRoute<void>(builder: (context){return MyPage(body:  HomeBody());}),
+    (){return MaterialPageRoute<void>(builder: (context){return MyPage(body:  HomeBody());});},
+    (){return MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());});},
+    (){return MaterialPageRoute<void>(builder: (context){return MyPage(body:  IITHSpecialWidget());});},
+    (){return MaterialPageRoute<void>(builder: (context){return MyPage(body:  OpinionsWidget());});},
   ];
 
   static void setThePage(BuildContext context,MaterialPageRoute<void> route,)
@@ -50,7 +48,7 @@ class NavDrawer extends StatelessWidget {
                   Navigator.pop(context);
                   if(current==i)return;
                   Navigator.pop(context);
-                  Navigator.push(context, methods[i]);
+                  Navigator.push(context, methods[i]());
                   current = i;
                 },
                 child: Text(entries[i], style: textstyle),

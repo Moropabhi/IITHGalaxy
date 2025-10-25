@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iithgalaxy/calender.dart';
+import 'package:iithgalaxy/iithspecials.dart';
+import 'package:iithgalaxy/opinions.dart';
 import 'navdrawer.dart';
 
 
@@ -26,6 +29,9 @@ class _MyPageState extends State<MyPage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    Calender.listenToEvents();
+    Opinions.listenToOpinions();
+    IITHSpecial.listenToItems();
     return Scaffold(
       appBar: AppBar(
         leading: Builder(

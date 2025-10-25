@@ -75,6 +75,16 @@ class Event extends DataView{
     start=s;
     duration=e.difference(s);
   }
+
+  @override
+  String getType() {
+    return strEvent[type.index];
+  }
+  
+  @override
+  void setType(int i) {
+    type=EventType.values[i];
+  }
 }
 
 class Calender {
@@ -177,7 +187,7 @@ List<Widget> getsmallListCard(BuildContext context) {
     }).toList();
   }
 
-  void listenToEvents({bool orderByStart = true}) {
+  static void listenToEvents({bool orderByStart = true}) {
     // cancel previous subscription if any
     _eventsSub?.cancel();
 

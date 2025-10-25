@@ -4,6 +4,9 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:iithgalaxy/calender.dart';
+import 'package:iithgalaxy/opinions.dart';
+
 
 class WeatherWidget extends StatefulWidget {
   const WeatherWidget({super.key});
@@ -73,6 +76,7 @@ class _WeatherWidget extends State<WeatherWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Opinions.listenToOpinions();
     return Container(
       decoration: BoxDecoration(
         gradient: RadialGradient(
