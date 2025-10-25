@@ -109,16 +109,16 @@ class Item extends DataView{
 }
 
 class IITHSpecial {
-  List<Item> items = [];
+  static List<Item> items = [];
 
     // Firestore collection for IITHSpecial items
-  final CollectionReference _itemsCol = FirebaseFirestore.instance.collection('IITHSpecial');
+  static CollectionReference _itemsCol = FirebaseFirestore.instance.collection('IITHSpecial');
 
   // Realtime subscription
-  StreamSubscription<QuerySnapshot>? _itemsSub;
+  static StreamSubscription<QuerySnapshot>? _itemsSub;
 
 
-  IITHSpecial({this.items = const <Item>[]});
+  IITHSpecial();
 
   Iterable<String> getList() {
     return items.map<String>((t) {
@@ -251,7 +251,7 @@ List<Widget> getsmallListCard(BuildContext context) {
   // }
 
     
-  void listenToItems({String orderByField = 'createdAt', bool descending = true}) {
+  static void listenToItems({String orderByField = 'createdAt', bool descending = true}) {
     // cancel any existing subscription
     _itemsSub?.cancel();
 
@@ -276,13 +276,13 @@ List<Widget> getsmallListCard(BuildContext context) {
   }
 
   /// Cancel the realtime listener (call this in dispose()).
-  void cancelListener() {
+  static void cancelListener() {
     _itemsSub?.cancel();
     _itemsSub = null;
   }
 
 
-  Future<DocumentReference> addItem(Item it) async {
+  static Future<DocumentReference> addItem(Item it) async {
     try {
       final docRef = await _itemsCol.add(it.toMap());
       return docRef;

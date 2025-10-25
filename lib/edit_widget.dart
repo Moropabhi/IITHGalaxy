@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iithgalaxy/iithspecials.dart';
 import 'package:iithgalaxy/opinions.dart';
 import 'opinions.dart';
 import 'navdrawer.dart';
@@ -188,7 +189,17 @@ data.setTime(start??DateTime.now(), end??DateTime.now());
           switch (val) {
             case DataType.calenderType:
             var vl = Event(name: data.getName(), duration: end?.difference(start??DateTime.now())??Duration(), start: start??DateTime.now(), authorDetails: data.getAuthor());
-              Calender.addData(vl);
+              Calender.addEvent(vl);
+              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
+              break;
+            case DataType.iith_SpecialType:
+            var vl = Item(name: data.getName(),type: ItemType.ideas,  authorDetails: data.getAuthor(),detail: data.getDesc());
+              IITHSpecial.addItem(vl);
+              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
+              break;
+            case DataType.opinionsType:
+            var vl = Opinion(name: data.getName(),type: OpinionType.compliants, authorDetails: data.getAuthor(),detail: data.getDesc());
+              Calender.addEvent(vl);
               NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
               break;
             default:

@@ -80,11 +80,11 @@ class Event extends DataView{
 class Calender {
   static List<Event> event = [];
 
-  Calender({this.event = const <Event>[]});
+  Calender();
 
-  final CollectionReference _eventsCol = FirebaseFirestore.instance.collection('Events');
+  static CollectionReference _eventsCol = FirebaseFirestore.instance.collection('Events');
 
-  StreamSubscription<QuerySnapshot>? _eventsSub;
+  static StreamSubscription<QuerySnapshot>? _eventsSub;
 
   Iterable<String> getList() {
     return event.map<String>((t) {
@@ -216,8 +216,8 @@ List<Widget> getsmallListCard(BuildContext context) {
         start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
       ),
       
-  //   ];
-  // }
+    ];
+   }
 
   void listenToEvents({bool orderByStart = true}) {
     // cancel previous subscription if any
@@ -279,14 +279,14 @@ List<Widget> getsmallListCard(BuildContext context) {
   }
 
   /// Stop listening (call from dispose)
-  void cancelListener() {
-    _eventsSub?.cancel();
+  static void cancelListener() {
+    Calender._eventsSub?.cancel();
     _eventsSub = null;
   }
 
   /// Realtime entering (write) to Firestore:
   /// addEvent writes an Event to the 'Events' collection.
-  Future<void> addEvent(Event e) async {
+  static Future<void> addEvent(Event e) async {
     try {
       await _eventsCol.add({
         'name': e.name,

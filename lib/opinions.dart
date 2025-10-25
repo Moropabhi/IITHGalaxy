@@ -105,13 +105,13 @@ class Opinion extends DataView{
 }
 
 class Opinions {
-  List<Opinion> items = [];
+  static List<Opinion> items = [];
 
-  final CollectionReference _opinionsCol = FirebaseFirestore.instance.collection('Opinions');
+  static final CollectionReference _opinionsCol = FirebaseFirestore.instance.collection('Opinions');
 
-  StreamSubscription<QuerySnapshot>? _opinionsSub;
+  static StreamSubscription<QuerySnapshot>? _opinionsSub;
 
-  Opinions({this.items = const <Opinion>[]});
+  Opinions();
 
   Iterable<String> getList() {
     return items.map<String>((t) {
@@ -193,7 +193,7 @@ class Opinions {
   //   ];
   // }
 
-  void listenToOpinions({String orderByField = 'createdAt', bool descending = true}) {
+  static void listenToOpinions({String orderByField = 'createdAt', bool descending = true}) {
     _opinionsSub?.cancel();
 
     Query query = _opinionsCol;
@@ -218,12 +218,12 @@ class Opinions {
   }
 
   /// Cancel the realtime listener (call in dispose()).
-  void cancelListener() {
+  static void cancelListener() {
     _opinionsSub?.cancel();
     _opinionsSub = null;
   }
 
-  Future<DocumentReference> addOpinion(Opinion op) async {
+  static Future<DocumentReference> addOpinion(Opinion op) async {
     try {
       final docRef = await _opinionsCol.add(op.toMap());
       return docRef;
