@@ -75,7 +75,7 @@ class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
                 },
                 clipBehavior: Clip.hardEdge,
 
-                child: Text("Events", textAlign: TextAlign.center),
+                child: Text("IITH Specials", textAlign: TextAlign.center),
               ),
             ] +
             l,

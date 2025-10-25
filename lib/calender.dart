@@ -122,7 +122,7 @@ class Calender {
                         ),
                     ),
                     Text(
-                      x.name,
+                      "${x.name} (${strEvent[x.type.index]})",
                       style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
                     ),
                     Text(
@@ -170,7 +170,7 @@ List<Widget> getsmallListCard(BuildContext context) {
                         ),
                     ),
                     Text(
-                      (x.name.length>max?"${x.name.substring(0,max)}...":x.name),
+                      (x.name.length>max?"${x.name.substring(0,max)}...  (${strEvent[x.type.index]})":"${x.name} (${strEvent[x.type.index]})"),
                       style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
                     ),
                   ],
