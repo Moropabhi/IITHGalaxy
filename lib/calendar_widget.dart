@@ -22,7 +22,7 @@ class _CalenderWidget extends State<CalenderWidget> {
       child: ListView(
         children: <Widget>[
           Text(
-                "Events",
+                "Calender",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -33,11 +33,6 @@ class _CalenderWidget extends State<CalenderWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
               children: [ElevatedButton(onPressed: (){
-                var v = Event(
-        name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      );
                 NavDrawer.setThePage(context, MaterialPageRoute<void>(builder: (context){return MyPage(body:  EditWidget());}));
               }, child: Text("Add")),]
               ),

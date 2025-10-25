@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iithgalaxy/iithspecials.dart';
+import 'package:iithgalaxy/iithspecials_widget.dart';
 import 'package:iithgalaxy/opinions.dart';
+import 'package:iithgalaxy/opinions_widget.dart';
 import 'opinions.dart';
 import 'navdrawer.dart';
 import 'myPage.dart';
@@ -35,7 +37,7 @@ class _EditWidget extends State<EditWidget> {
     textfield3.dispose();
     super.dispose();
   }
-
+ var x = [""];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,26 +74,33 @@ class _EditWidget extends State<EditWidget> {
             ],
             onSelected: (value) {
               val = value ?? DataType.calenderType;
+              switch (val) {
+                case DataType.calenderType:
+                  x=strEvent;
+                  break;
+                case DataType.iith_SpecialType:
+                x=strItems;
+                case DataType.opinionsType:
+                x=strOpinion;
+                default:
+                x=[""];
+
+              }
+              setState(() {
+                
+              });
             },
           ),
           SizedBox(height: 10),
           DropdownMenu(
             requestFocusOnTap: true,
             label: Text("Type"),
-            dropdownMenuEntries: [
-              DropdownMenuEntry(
-                value: DataType.calenderType,
-                label: "Calendar",
-              ),
-              DropdownMenuEntry(
-                value: DataType.iith_SpecialType,
-                label: "IITH_Special",
-              ),
-              DropdownMenuEntry(
-                value: DataType.opinionsType,
-                label: "Opinions.IITH",
-              ),
-            ],
+            dropdownMenuEntries: x.map((i){
+              return DropdownMenuEntry(
+                value: x.indexOf(i),
+                label: i,
+              );}).toList(),
+          
           ),
           SizedBox(height: 10),
 
@@ -188,19 +197,19 @@ data.setTime(start??DateTime.now(), end??DateTime.now());
 
           switch (val) {
             case DataType.calenderType:
-            var vl = Event(name: data.getName(), duration: end?.difference(start??DateTime.now())??Duration(), start: start??DateTime.now(), authorDetails: data.getAuthor());
+            var vl = Event(name: data.getName(), duration: (end?.difference(start??DateTime.now()))??Duration(hours: 1), start: start??DateTime.now(), authorDetails: data.getAuthor());
               Calender.addEvent(vl);
               NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
               break;
             case DataType.iith_SpecialType:
             var vl = Item(name: data.getName(),type: ItemType.ideas,  authorDetails: data.getAuthor(),detail: data.getDesc());
               IITHSpecial.addItem(vl);
-              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
+              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  IITHSpecialWidget());}));
               break;
             case DataType.opinionsType:
             var vl = Opinion(name: data.getName(),type: OpinionType.compliants, authorDetails: data.getAuthor(),detail: data.getDesc());
-              Calender.addEvent(vl);
-              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
+              Opinions.addOpinion(vl);
+              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  OpinionsWidget());}));
               break;
             default:
           }

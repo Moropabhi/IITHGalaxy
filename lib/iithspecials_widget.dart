@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'iithspecials.dart';
 import 'navdrawer.dart';
 import 'myPage.dart';
+import 'edit_widget.dart';
 
 class IITHSpecialWidget extends StatefulWidget {
   const IITHSpecialWidget({super.key});
@@ -30,7 +31,12 @@ class _IITHSpecialWidget extends State<IITHSpecialWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+              children: [ElevatedButton(onPressed: (){
+                NavDrawer.setThePage(context, MaterialPageRoute<void>(builder: (context){return MyPage(body:  EditWidget());}));
+              }, child: Text("Add")),]
+              ),
             ] +
             c.getListCard(context),
       ),

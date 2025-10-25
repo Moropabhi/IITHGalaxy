@@ -16,6 +16,8 @@ enum ItemType{
   others,papers,projects,ideas,researchUpdates
 }
 
+var strItems = ["others","papers","projects","ideas","researchUpdates"];
+
 class Item extends DataView{
   String name;
   ItemType type;

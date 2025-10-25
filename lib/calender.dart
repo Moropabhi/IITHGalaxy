@@ -183,42 +183,6 @@ List<Widget> getsmallListCard(BuildContext context) {
     }).toList();
   }
 
-  void fetchData() {
-    event = [
-      Event(
-        name: "Event1"*90,
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1"*90,
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1"*90,
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      
-    ];
-   }
-
   void listenToEvents({bool orderByStart = true}) {
     // cancel previous subscription if any
     _eventsSub?.cancel();
@@ -300,9 +264,5 @@ List<Widget> getsmallListCard(BuildContext context) {
       print('addEvent error: $ex');
       rethrow;
     }
-  }
-  static void addData(Event v)
-  {
-    Calender.event.add(v);
   }
 }

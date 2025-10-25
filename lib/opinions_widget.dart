@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iithgalaxy/opinions.dart';
+import 'navdrawer.dart';
+import 'edit_widget.dart';
+import 'myPage.dart';
 
 class OpinionsWidget extends StatefulWidget {
   const OpinionsWidget({super.key});
@@ -28,7 +31,12 @@ class _OpinionsWidget extends State<OpinionsWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 50,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+              children: [ElevatedButton(onPressed: (){
+                NavDrawer.setThePage(context, MaterialPageRoute<void>(builder: (context){return MyPage(body:  EditWidget());}));
+              }, child: Text("Add")),]
+              ),
             ] +
             c.getListCard(context),
       ),

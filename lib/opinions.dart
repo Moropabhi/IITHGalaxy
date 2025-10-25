@@ -16,6 +16,19 @@ enum OpinionType{
   others,reviews,compliants,petitions
 }
 
+  String getstr(OpinionType x)
+  {
+    switch (x) {
+      case OpinionType.others:
+        return "Others";
+      case OpinionType.reviews :return "Reviews";
+      case OpinionType.compliants :return "Compliants";
+      case OpinionType.petitions :return "Petitions";
+      default:return "";
+    }
+  }
+var strOpinion = OpinionType.values.map((x){return getstr(x);}).toList();
+
 class Opinion extends DataView{
   String name;
   OpinionType type;
@@ -28,6 +41,7 @@ class Opinion extends DataView{
     required this.authorDetails,
     required this.detail,
   });
+
 
   factory Opinion.fromMap(Map<String, dynamic> data) {
     final name = (data['name'] ?? '').toString();
@@ -119,16 +133,7 @@ class Opinions {
     });
   }
 
-  String getstr(OpinionType x)
-  {
-    switch (x) {
-      case OpinionType.others:
-        return "Others";
-      case OpinionType.reviews :return "Reviews";
-      case OpinionType.compliants :return "Compliants";
-      case OpinionType.petitions :return "Petitions";
-    }
-  }
+  
 
   List<Widget> getListCard(BuildContext context) {
     return items.map<Widget>((x) {

@@ -41,7 +41,7 @@ class NavDrawer extends StatelessWidget {
             <Widget>[
               SizedBox(
                 height: 100,
-                child: TextButton(onPressed: () {}, child: Text("Hello")),
+                child: TextButton(onPressed: () {}, child: Text("Hello User (To be implemented)")),
               ),
             ] +
             List.generate(entries.length, (i) {
