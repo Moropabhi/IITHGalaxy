@@ -148,7 +148,6 @@ class Opinions {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
-              color: const Color.fromARGB(255, 149, 78, 231),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 margin: EdgeInsets.all(10),
@@ -160,19 +159,16 @@ class Opinions {
                     Text(
                       getstr(x.type),
                       style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 47, 255),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         ),
                     ),
                     Text(
                       "${wrapUp(x.name,30)} \nby ${wrapUp(x.authorDetails,30)}",
-                      style: TextStyle(color: const Color.fromARGB(255, 91, 199, 238)),
                     ),
                     Text(
                       wrapUp(x.detail,300),
                       textAlign: TextAlign.justify,
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
                     ),
                   ],
                 ),
