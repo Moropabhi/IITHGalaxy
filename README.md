@@ -15,3 +15,5 @@ A Flutter project focusing on the students basic requirements.
 
 ## Contributor
 1) Abhisek Mohapatra
+2) Aryansingh Sonaye
+3) Ayush Sunil Labhade
