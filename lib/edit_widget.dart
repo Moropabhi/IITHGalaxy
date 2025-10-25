@@ -18,9 +18,12 @@ class EditWidget extends StatefulWidget {
 }
 
 class _EditWidget extends State<EditWidget> {
-  DataView data=Event(  name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike");
+  DataView data = Event(
+    name: "Event1",
+    duration: Duration(days: 0, hours: 1, minutes: 30),
+    start: DateTime(2025, 9, 7, 17, 30),
+    authorDetails: "hike",
+  );
   _EditWidget();
 
   final textfield = TextEditingController();
@@ -29,6 +32,7 @@ class _EditWidget extends State<EditWidget> {
   DataType val = DataType.calenderType;
   DateTime? start, end;
   TimeOfDay? startt, endt;
+  int i = 0;
 
   @override
   void dispose() {
@@ -37,7 +41,8 @@ class _EditWidget extends State<EditWidget> {
     textfield3.dispose();
     super.dispose();
   }
- var x = [""];
+
+  var x = [""];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,31 +81,28 @@ class _EditWidget extends State<EditWidget> {
               val = value ?? DataType.calenderType;
               switch (val) {
                 case DataType.calenderType:
-                  x=strEvent;
+                  x = strEvent;
                   break;
                 case DataType.iith_SpecialType:
-                x=strItems;
+                  x = strItems;
                 case DataType.opinionsType:
-                x=strOpinion;
+                  x = strOpinion;
                 default:
-                x=[""];
-
+                  x = [""];
               }
-              setState(() {
-                
-              });
+              setState(() {});
             },
           ),
           SizedBox(height: 10),
           DropdownMenu(
             requestFocusOnTap: true,
             label: Text("Type"),
-            dropdownMenuEntries: x.map((i){
-              return DropdownMenuEntry(
-                value: x.indexOf(i),
-                label: i,
-              );}).toList(),
-          
+            dropdownMenuEntries: x.map((i) {
+              return DropdownMenuEntry(value: x.indexOf(i), label: i);
+            }).toList(),
+            onSelected: (value) {
+              i = value ?? 0;
+            },
           ),
           SizedBox(height: 10),
 
@@ -174,46 +176,88 @@ class _EditWidget extends State<EditWidget> {
               border: OutlineInputBorder(),
             ),
           ),
-          ElevatedButton(onPressed: () {
-
-data.setName(textfield.text);
-data.setAuthor(textfield2.text);
-data.setDesc(textfield3.text);
-start=DateTime(
-          start?.year??0,
-          start?.month??0,
-          start?.day??0,
-          startt?.hour??0,
-          startt?.minute??0,
-        );
-        end=DateTime(
-          end?.year??0,
-          end?.month??0,
-          end?.day??0,
-          endt?.hour??0,
-          endt?.minute??0,
-        );
-data.setTime(start??DateTime.now(), end??DateTime.now());
-
-          switch (val) {
-            case DataType.calenderType:
-            var vl = Event(name: data.getName(), duration: (end?.difference(start??DateTime.now()))??Duration(hours: 1), start: start??DateTime.now(), authorDetails: data.getAuthor());
-              Calender.addEvent(vl);
-              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  CalenderWidget());}));
-              break;
-            case DataType.iith_SpecialType:
-            var vl = Item(name: data.getName(),type: ItemType.ideas,  authorDetails: data.getAuthor(),detail: data.getDesc());
-              IITHSpecial.addItem(vl);
-              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  IITHSpecialWidget());}));
-              break;
-            case DataType.opinionsType:
-            var vl = Opinion(name: data.getName(),type: OpinionType.compliants, authorDetails: data.getAuthor(),detail: data.getDesc());
-              Opinions.addOpinion(vl);
-              NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  OpinionsWidget());}));
-              break;
-            default:
-          }
-          }, child: Text("Submit")),
+          ElevatedButton(
+            onPressed: () {
+              data.setName(textfield.text);
+              data.setAuthor(textfield2.text);
+              data.setDesc(textfield3.text);
+              start = DateTime(
+                start?.year ?? 0,
+                start?.month ?? 0,
+                start?.day ?? 0,
+                startt?.hour ?? 0,
+                startt?.minute ?? 0,
+              );
+              end = DateTime(
+                end?.year ?? 0,
+                end?.month ?? 0,
+                end?.day ?? 0,
+                endt?.hour ?? 0,
+                endt?.minute ?? 0,
+              );
+              data.setTime(start ?? DateTime.now(), end ?? DateTime.now());
+              switch (val) {
+                case DataType.calenderType:
+                  var vl = Event(
+                    name: data.getName(),
+                    duration:
+                        (end?.difference(start ?? DateTime.now())) ??
+                        Duration(hours: 1),
+                    start: start ?? DateTime.now(),
+                    authorDetails: data.getAuthor(),
+                  );
+                  vl.setType(i);
+                  Calender.addEvent(vl);
+                  NavDrawer.setThePage(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return MyPage(body: CalenderWidget());
+                      },
+                    ),
+                  );
+                  break;
+                case DataType.iith_SpecialType:
+                  var vl = Item(
+                    name: data.getName(),
+                    type: ItemType.ideas,
+                    authorDetails: data.getAuthor(),
+                    detail: data.getDesc(),
+                  );
+                  vl.setType(i);
+                  IITHSpecial.addItem(vl);
+                  NavDrawer.setThePage(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return MyPage(body: IITHSpecialWidget());
+                      },
+                    ),
+                  );
+                  break;
+                case DataType.opinionsType:
+                  var vl = Opinion(
+                    name: data.getName(),
+                    type: OpinionType.compliants,
+                    authorDetails: data.getAuthor(),
+                    detail: data.getDesc(),
+                  );
+                  vl.setType(i);
+                  Opinions.addOpinion(vl);
+                  NavDrawer.setThePage(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return MyPage(body: OpinionsWidget());
+                      },
+                    ),
+                  );
+                  break;
+                default:
+              }
+            },
+            child: Text("Submit"),
+          ),
 
           //FloatingActionButton(onPressed: (){})
         ],

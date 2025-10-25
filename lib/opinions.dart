@@ -116,6 +116,16 @@ class Opinion extends DataView{
     // start=s;
     // duration=e.difference(s);
   }
+  
+  @override
+  String getType() {
+    return strOpinion[type.index];
+  }
+  
+  @override
+  void setType(int i) {
+    type=OpinionType.values[i];
+  }
 }
 
 class Opinions {

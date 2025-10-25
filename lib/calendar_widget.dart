@@ -12,10 +12,17 @@ class CalenderWidget extends StatefulWidget {
 }
 
 class _CalenderWidget extends State<CalenderWidget> {
+
+  @override
+  void initState() {
+    Calender.listenToEvents();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var c = Calender();
-    c.listenToEvents();
+    Calender.listenToEvents();
 
     return Container(
       margin: EdgeInsets.all(10),
@@ -50,10 +57,19 @@ class CalenderSmallWidget extends StatefulWidget {
 }
 
 class _CalenderSmallWidget extends State<CalenderSmallWidget> {
+
+  @override
+  _CalenderSmallWidget() :super(){
+
+    print("object");
+        Calender.listenToEvents();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var c = Calender();
-    c.listenToEvents();
+    Calender.listenToEvents();
     var l = c.getsmallListCard(context);
     int n = 3;
     if(l.length>n)l=List.generate(n, (i){return l[i];});

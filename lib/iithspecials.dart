@@ -108,6 +108,15 @@ class Item extends DataView{
     // start=s;
     // duration=e.difference(s);
   }
+  @override
+  String getType() {
+    return strItems[type.index];
+  }
+  
+  @override
+  void setType(int i) {
+    type=ItemType.values[i];
+  }
 }
 
 class IITHSpecial {

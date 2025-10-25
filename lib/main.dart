@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MyPage(body: HomeBody(),),
+      home: MyPage(body: HomeBody(),),
     );
   }
 }

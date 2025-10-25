@@ -8,10 +8,12 @@ abstract class DataView{
   String getName();
   String? getTime();
   String getDesc();
+  String getType();
   void setAuthor(String s);
   void setName(String s);
   void setTime(DateTime s, DateTime e);
   void setDesc(String s);
+  void setType(int i);
 }
 
 enum DataType{calenderType,iith_SpecialType,opinionsType}
@@ -36,6 +38,15 @@ class _ViewWidget extends State<ViewWidget> {
         children:
             <Widget>[
               Text(
+                v.getType(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
                 v.getName(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -53,7 +64,7 @@ class _ViewWidget extends State<ViewWidget> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),),
                   ),
@@ -63,21 +74,21 @@ class _ViewWidget extends State<ViewWidget> {
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),),
                     ),
                 ],
               ),
+              SizedBox(height: 50,),
                 Text(
                 v.getDesc(),
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 30,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),),
-              SizedBox(height: 50,),
             ] 
       ),
     );

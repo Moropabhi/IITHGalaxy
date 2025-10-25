@@ -12,6 +12,15 @@ class OpinionsWidget extends StatefulWidget {
 }
 
 class _OpinionsWidget extends State<OpinionsWidget> {
+
+
+
+  @override
+  void initState() {
+     Opinions.listenToOpinions();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var c = Opinions();
