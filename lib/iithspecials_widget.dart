@@ -14,7 +14,7 @@ class _IITHSpecialWidget extends State<IITHSpecialWidget> {
   @override
   Widget build(BuildContext context) {
     var c = IITHSpecial();
-    c.fetchData();
+    c.listenToItems();
 
     return Container(
       margin: EdgeInsets.all(10),
@@ -49,7 +49,7 @@ class _IITHSpecialSmallWidget extends State<IITHSpecialSmallWidget> {
   @override
   Widget build(BuildContext context) {
     var c = IITHSpecial();
-    c.fetchData();
+    c.listenToItems();
     var l = c.getsmallListCard(context);
     int n = 2;
     if (l.length > n) {

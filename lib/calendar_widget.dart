@@ -14,7 +14,7 @@ class _CalenderWidget extends State<CalenderWidget> {
   @override
   Widget build(BuildContext context) {
     var c = Calender();
-    c.fetchData();
+    c.listenToEvents();
 
     return Container(
       margin: EdgeInsets.all(10),
@@ -47,7 +47,7 @@ class _CalenderSmallWidget extends State<CalenderSmallWidget> {
   @override
   Widget build(BuildContext context) {
     var c = Calender();
-    c.fetchData();
+    c.listenToEvents();
     var l = c.getsmallListCard(context);
     int n = 3;
     if(l.length>n)l=List.generate(n, (i){return l[i];});

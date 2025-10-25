@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:iithgalaxy/view_widget.dart';
 import 'navdrawer.dart';
 import 'myPage.dart';
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 String wrapUp(String s, int n)
 {
@@ -25,6 +28,35 @@ class Opinion extends DataView{
     required this.authorDetails,
     required this.detail,
   });
+
+  factory Opinion.fromMap(Map<String, dynamic> data) {
+    final name = (data['name'] ?? '').toString();
+    final typeStr = (data['type'] ?? '').toString().toLowerCase();
+    final author = (data['authorDetails'] ?? data['author'] ?? '').toString();
+    final detail = (data['detail'] ?? '').toString();
+
+    OpinionType type = OpinionType.others;
+    if (typeStr == 'reviews') type = OpinionType.reviews;
+    else if (typeStr == 'compliants' || typeStr == 'complaints') type = OpinionType.compliants;
+    else if (typeStr == 'petitions') type = OpinionType.petitions;
+
+    return Opinion(
+      name: name.isEmpty ? 'Untitled' : name,
+      type: type,
+      authorDetails: author.isEmpty ? 'Unknown' : author,
+      detail: detail,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'type': type.toString().split('.').last,
+      'authorDetails': authorDetails,
+      'detail': detail,
+      'createdAt': FieldValue.serverTimestamp(), // requires cloud_firestore import
+    };
+  }
 
   @override
   String toString() {
@@ -54,6 +86,10 @@ class Opinion extends DataView{
 
 class Opinions {
   List<Opinion> items = [];
+
+  final CollectionReference _opinionsCol = FirebaseFirestore.instance.collection('Opinions');
+
+  StreamSubscription<QuerySnapshot>? _opinionsSub;
 
   Opinions({this.items = const <Opinion>[]});
 
@@ -123,17 +159,57 @@ class Opinions {
     }).toList();
   }
 
-  void fetchData() {
-    items = [
-      Opinion(name: "Robotoic Arm"*8, type: OpinionType.petitions, authorDetails: "Me and others"*90, detail: "we made this arm."*90),
-      Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
-      Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
-      Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
-      Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
-      Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
-      Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
-      Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
+  // void fetchData() {
+  //   items = [
+  //     Opinion(name: "Robotoic Arm"*8, type: OpinionType.petitions, authorDetails: "Me and others"*90, detail: "we made this arm."*90),
+  //     Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Opinion(name: "Robotoic Arm", type: OpinionType.petitions, authorDetails: "Me and others", detail: "we made this arm."),
       
-    ];
+  //   ];
+  // }
+
+  void listenToOpinions({String orderByField = 'createdAt', bool descending = true}) {
+    _opinionsSub?.cancel();
+
+    Query query = _opinionsCol;
+    if (orderByField.isNotEmpty) {
+      query = query.orderBy(orderByField, descending: descending);
+    }
+
+    _opinionsSub = query.snapshots().listen((snapshot) {
+      try {
+        items = snapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          return Opinion.fromMap(data);
+        }).toList();
+      } catch (e) {
+        print('listenToOpinions parsing error: $e');
+        items = [];
+      }
+      
+    }, onError: (err) {
+      print('listenToOpinions error: $err');
+    });
+  }
+
+  /// Cancel the realtime listener (call in dispose()).
+  void cancelListener() {
+    _opinionsSub?.cancel();
+    _opinionsSub = null;
+  }
+
+  Future<DocumentReference> addOpinion(Opinion op) async {
+    try {
+      final docRef = await _opinionsCol.add(op.toMap());
+      return docRef;
+    } catch (ex) {
+      print('addOpinion error: $ex');
+      rethrow;
+    }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "514054930377",
+    "project_id": "iithgalaxy-aryan749",
+    "storage_bucket": "iithgalaxy-aryan749.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514054930377:android:00da5e7912ad6993a4b218",
+        "android_client_info": {
+          "package_name": "com.example.iithgalaxy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwrhFaD57j-p6AaTnuOROJIAFc1Y0swJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
