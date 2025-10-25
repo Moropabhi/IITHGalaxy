@@ -162,7 +162,6 @@ class IITHSpecial {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
-              color: const Color.fromARGB(255, 158, 58, 230),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 margin: EdgeInsets.all(10),
@@ -174,19 +173,16 @@ class IITHSpecial {
                     Text(
                       getstr(x.type),
                       style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 47, 255),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         ),
                     ),
                     Text(
                       "${wrapUp(x.name,30)} \nby ${wrapUp(x.authorDetails,30)}",
-                      style: TextStyle(color: const Color.fromARGB(255, 137, 245, 87)),
                     ),
                     Text(
                       wrapUp(x.detail,300),
                       textAlign: TextAlign.justify,
-                      style: TextStyle(color: const Color.fromARGB(255, 235, 116, 112)),
                     ),
                   ],
                 ),
@@ -211,7 +207,6 @@ List<Widget> getsmallListCard(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
-              color: const Color.fromARGB(255, 58, 58, 58),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 margin: EdgeInsets.all(10),
@@ -223,19 +218,16 @@ List<Widget> getsmallListCard(BuildContext context) {
                     Text(
                       getstr(x.type),
                       style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 47, 255),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         ),
                     ),
                     Text(
                       "${wrapUp(x.name,20)} \tby ${wrapUp(x.authorDetails,20)}",
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
                     ),
                     Text(
                       wrapUp(x.detail,20),
                       textAlign: TextAlign.justify,
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
                     ),
                   ],
                 ),

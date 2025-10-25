@@ -62,7 +62,12 @@ class _EditWidget extends State<EditWidget> {
           SizedBox(height: 50),
           DropdownMenu(
             requestFocusOnTap: true,
-            label: Text("Type"),
+            label: Text("Type",style: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),),
+            textStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),
             dropdownMenuEntries: [
               DropdownMenuEntry(
                 value: DataType.calenderType,
@@ -96,6 +101,18 @@ class _EditWidget extends State<EditWidget> {
           SizedBox(height: 10),
           DropdownMenu(
             requestFocusOnTap: true,
+            label: Text("Type",style: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),),
+            textStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),
+            dropdownMenuEntries: x.map((i){
+              return DropdownMenuEntry(
+                value: x.indexOf(i),
+                label: i,
+              );}).toList(),
+          
             label: Text("Type"),
             dropdownMenuEntries: x.map((i) {
               return DropdownMenuEntry(value: x.indexOf(i), label: i);
@@ -111,6 +128,12 @@ class _EditWidget extends State<EditWidget> {
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Name",
+              iconColor: Colors.amber,
+              labelStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),floatingLabelStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),
             ),
           ),
           SizedBox(height: 10),
@@ -120,6 +143,11 @@ class _EditWidget extends State<EditWidget> {
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Author",
+              labelStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),floatingLabelStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),
             ),
           ),
           SizedBox(height: 10),
@@ -174,6 +202,12 @@ class _EditWidget extends State<EditWidget> {
             decoration: InputDecoration(
               labelText: "Add description",
               border: OutlineInputBorder(),
+              labelStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+            ),floatingLabelStyle: TextStyle(
+              color: const Color.fromARGB(255, 255, 155, 191)
+              
+            ),
             ),
           ),
           ElevatedButton(

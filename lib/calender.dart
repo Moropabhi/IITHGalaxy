@@ -115,7 +115,6 @@ class Calender {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
-              color: const Color.fromARGB(255, 113, 29, 230),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 margin: EdgeInsets.all(10),
@@ -126,19 +125,16 @@ class Calender {
                     Text(
                       "${x.start.day}/${x.start.month}/${x.start.year}",
                       style: TextStyle(
-                        color: const Color.fromARGB(255, 33, 168, 18),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         ),
                     ),
                     Text(
                       "${x.name} (${strEvent[x.type.index]})",
-                      style: TextStyle(color: const Color.fromARGB(255, 235, 75, 237)),
                     ),
                     Text(
                       x.getTime()??'',
                       textAlign: TextAlign.justify,
-                      style: TextStyle(color: const Color.fromARGB(255, 248, 248, 245)),
                     ),
                   ],
                 ),
@@ -165,7 +161,6 @@ List<Widget> getsmallListCard(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Card(
-              color: const Color.fromARGB(255, 58, 58, 58),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 margin: EdgeInsets.all(10),
@@ -175,13 +170,12 @@ List<Widget> getsmallListCard(BuildContext context) {
                     Text(
                       x.getTime()??'',
                       style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 47, 255),
                         fontWeight: FontWeight.bold,
                         ),
                     ),
                     Text(
                       (x.name.length>max?"${x.name.substring(0,max)}...  (${strEvent[x.type.index]})":"${x.name} (${strEvent[x.type.index]})"),
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
+                      //style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
                     ),
                   ],
                 ),
