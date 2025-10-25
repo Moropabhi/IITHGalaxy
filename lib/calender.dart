@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:iithgalaxy/view_widget.dart';
 import 'navdrawer.dart';
 import 'myPage.dart';
@@ -49,6 +51,10 @@ class Calender {
   List<Event> event = [];
 
   Calender({this.event = const <Event>[]});
+
+  final CollectionReference _eventsCol = FirebaseFirestore.instance.collection('Events');
+
+  StreamSubscription<QuerySnapshot>? _eventsSub;
 
   Iterable<String> getList() {
     return event.map<String>((t) {
@@ -147,40 +153,122 @@ List<Widget> getsmallListCard(BuildContext context) {
     }).toList();
   }
 
-  void fetchData() {
-    event = [
-      Event(
-        name: "Event1"*90,
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1"*90,
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1"*90,
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
-      Event(
-        name: "Event1",
-        duration: Duration(days: 0, hours: 1, minutes: 30),
-        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-      ),
+  // void fetchData() {
+  //   event = [
+  //     Event(
+  //       name: "Event1"*90,
+  //       duration: Duration(days: 0, hours: 1, minutes: 30),
+  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+  //     ),
+  //     Event(
+  //       name: "Event1"*90,
+  //       duration: Duration(days: 0, hours: 1, minutes: 30),
+  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+  //     ),
+  //     Event(
+  //       name: "Event1"*90,
+  //       duration: Duration(days: 0, hours: 1, minutes: 30),
+  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+  //     ),
+  //     Event(
+  //       name: "Event1",
+  //       duration: Duration(days: 0, hours: 1, minutes: 30),
+  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+  //     ),
+  //     Event(
+  //       name: "Event1",
+  //       duration: Duration(days: 0, hours: 1, minutes: 30),
+  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+  //     ),
+  //     Event(
+  //       name: "Event1",
+  //       duration: Duration(days: 0, hours: 1, minutes: 30),
+  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+  //     ),
       
-    ];
+  //   ];
+  // }
+
+  void listenToEvents({bool orderByStart = true}) {
+    // cancel previous subscription if any
+    _eventsSub?.cancel();
+
+    Query query = _eventsCol;
+    if (orderByStart) {
+      query = query.orderBy('start', descending: false);
+    }
+
+    _eventsSub = query.snapshots().listen((snapshot) {
+      try {
+        event = snapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+
+          final name = (data['name'] ?? data['Name'] ?? '').toString();
+          final author = (data['authorDetails'] ?? data['author'] ?? '').toString();
+          final detail = data['detail']?.toString();
+
+          DateTime start;
+          final s = data['start'];
+          if (s is Timestamp) {
+            start = s.toDate();
+          } else if (s is int) {
+            start = DateTime.fromMillisecondsSinceEpoch(s);
+          } else if (s is String) {
+            start = DateTime.tryParse(s) ?? DateTime.now();
+          } else {
+            start = DateTime.now();
+          }
+
+          Duration duration;
+          if (data['durationMinutes'] != null) {
+            final mins = int.tryParse(data['durationMinutes'].toString()) ?? 0;
+            duration = Duration(minutes: mins);
+          } else {
+            final days = int.tryParse((data['duration_days'] ?? 0).toString()) ?? 0;
+            final hours = int.tryParse((data['duration_hours'] ?? 0).toString()) ?? 0;
+            final minutes = int.tryParse((data['duration_minutes'] ?? 0).toString()) ?? 0;
+            duration = Duration(days: days, hours: hours, minutes: minutes);
+          }
+
+          return Event(
+            name: name.isEmpty ? 'Unnamed Event' : name,
+            authorDetails: author.isEmpty ? 'Unknown' : author,
+            start: start,
+            duration: duration,
+            detail: detail,
+          );
+        }).toList();
+      } catch (e) {
+        print('listenToEvents parsing error: $e');
+        event = [];
+      }
+      
+    }, onError: (err) {
+      print('listenToEvents error: $err');
+    });
   }
 
+  /// Stop listening (call from dispose)
+  void cancelListener() {
+    _eventsSub?.cancel();
+    _eventsSub = null;
+  }
+
+  /// Realtime entering (write) to Firestore:
+  /// addEvent writes an Event to the 'Events' collection.
+  Future<void> addEvent(Event e) async {
+    try {
+      await _eventsCol.add({
+        'name': e.name,
+        'authorDetails': e.authorDetails,
+        'detail': e.detail ?? '',
+        'start': Timestamp.fromDate(e.start),
+        'durationMinutes': e.duration.inMinutes,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    } catch (ex) {
+      print('addEvent error: $ex');
+      rethrow;
+    }
+  }
 }

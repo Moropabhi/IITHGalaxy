@@ -1,8 +1,11 @@
 import 'dart:core';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'view_widget.dart';
 import 'navdrawer.dart';
 import 'myPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 String wrapUp(String s, int n)
 {
@@ -25,6 +28,37 @@ class Item extends DataView{
     required this.authorDetails,
     required this.detail,
   });
+
+  factory Item.fromMap(Map<String, dynamic> data) {
+    final name = (data['name'] ?? '').toString();
+    final typeStr = (data['type'] ?? '').toString().toLowerCase();
+    final author = (data['authorDetails'] ?? data['author'] ?? '').toString();
+    final detail = (data['detail'] ?? '').toString();
+
+    ItemType type = ItemType.others;
+    if (typeStr == 'projects') type = ItemType.projects;
+    else if (typeStr == 'papers') type = ItemType.papers;
+    else if (typeStr == 'ideas') type = ItemType.ideas;
+    else if (typeStr == 'researchupdates' || typeStr == 'research' || typeStr == 'research_logs')
+      type = ItemType.researchUpdates;
+
+    return Item(
+      name: name.isEmpty ? 'Untitled' : name,
+      type: type,
+      authorDetails: author.isEmpty ? 'Unknown' : author,
+      detail: detail,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'type': type.toString().split('.').last,
+      'authorDetails': authorDetails,
+      'detail': detail,
+      'createdAt': FieldValue.serverTimestamp(), // requires cloud_firestore import
+    };
+  }
 
   @override
   String toString() {
@@ -55,6 +89,13 @@ class Item extends DataView{
 
 class IITHSpecial {
   List<Item> items = [];
+
+    // Firestore collection for IITHSpecial items
+  final CollectionReference _itemsCol = FirebaseFirestore.instance.collection('IITHSpecial');
+
+  // Realtime subscription
+  StreamSubscription<QuerySnapshot>? _itemsSub;
+
 
   IITHSpecial({this.items = const <Item>[]});
 
@@ -174,17 +215,60 @@ List<Widget> getsmallListCard(BuildContext context) {
     }).toList();
   }
 
-  void fetchData() {
-    items = [
-      Item(name: "Robotoic Arm"*8, type: ItemType.projects, authorDetails: "Me and others"*90, detail: "we made this arm."*90),
-      Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
-      Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
-      Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
-      Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
-      Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
-      Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
-      Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
+  // void fetchData() {
+  //   items = [
+  //     Item(name: "Robotoic Arm"*8, type: ItemType.projects, authorDetails: "Me and others"*90, detail: "we made this arm."*90),
+  //     Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
+  //     Item(name: "Robotoic Arm", type: ItemType.projects, authorDetails: "Me and others", detail: "we made this arm."),
       
-    ];
+  //   ];
+  // }
+
+    
+  void listenToItems({String orderByField = 'createdAt', bool descending = true}) {
+    // cancel any existing subscription
+    _itemsSub?.cancel();
+
+    Query query = _itemsCol;
+    if (orderByField.isNotEmpty) {
+      query = query.orderBy(orderByField, descending: descending);
+    }
+
+    _itemsSub = query.snapshots().listen((snapshot) {
+      try {
+        items = snapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          return Item.fromMap(data);
+        }).toList();
+      } catch (e) {
+        print('listenToItems parsing error: $e');
+        items = [];
+      }
+    }, onError: (err) {
+      print('listenToItems error: $err');
+    });
   }
+
+  /// Cancel the realtime listener (call this in dispose()).
+  void cancelListener() {
+    _itemsSub?.cancel();
+    _itemsSub = null;
+  }
+
+
+  Future<DocumentReference> addItem(Item it) async {
+    try {
+      final docRef = await _itemsCol.add(it.toMap());
+      return docRef;
+    } catch (ex) {
+      print('addItem error: $ex');
+      rethrow;
+    }
+  }
+
 }

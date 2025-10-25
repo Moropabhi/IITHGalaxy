@@ -12,7 +12,7 @@ class _OpinionsWidget extends State<OpinionsWidget> {
   @override
   Widget build(BuildContext context) {
     var c = Opinions();
-    c.fetchData();
+    c.listenToOpinions();
 
     return Container(
       margin: EdgeInsets.all(10),
