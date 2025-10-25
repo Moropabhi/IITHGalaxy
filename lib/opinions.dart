@@ -82,6 +82,26 @@ class Opinion extends DataView{
   String? getTime() {
     return null;
   }
+    @override
+  void setAuthor(String s) {
+    authorDetails=s;
+  }
+  
+  @override
+  void setDesc(String s) {
+    detail=s;
+  }
+  
+  @override
+  void setName(String s) {
+    name=s;
+  }
+  
+  @override
+  void setTime(DateTime s, DateTime e) {
+    // start=s;
+    // duration=e.difference(s);
+  }
 }
 
 class Opinions {

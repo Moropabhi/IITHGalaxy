@@ -6,9 +6,17 @@ import 'package:iithgalaxy/view_widget.dart';
 import 'navdrawer.dart';
 import 'myPage.dart';
 
+enum EventType
+{
+  Lectures,Seminar,Sessions,Others
+}
+
+var strEvent = ["Lectures","Seminar","Sessions","Others"];
+
 class Event extends DataView{
   String name;
   String authorDetails;
+  EventType type;
   DateTime start;
   Duration duration;
   String? detail;
@@ -17,13 +25,14 @@ class Event extends DataView{
     required this.name,
     required this.duration,
     required this.start,
+    this.type = EventType.Lectures,
     required this.authorDetails,
     this.detail,
   });
 
   @override
   String toString() {
-    return "${start.day}/${start.month}/${start.year} $name ${duration.inDays == 0 ? "" : (duration.inDays == 1 ? "${duration.inDays} day" : "${duration.inDays} days")} ${duration.inHours == 0 ? "" : (duration.inHours == 1 ? "${duration.inHours} hour" : "${duration.inHours} hours")} ${duration.inMinutes == 0 ? "" : "${duration.inMinutes} minutes"} ${detail ?? ""} ";
+    return "${start.day}/${start.month}/${start.year} $name ${duration.inDays == 0 ? "" : (duration.inDays == 1 ? "${duration.inDays} day" : "${duration.inDays} days")} ${duration.inHours == 0 ? "" : (duration.inHours-duration.inDays*24 == 1 ? "${duration.inHours-duration.inDays*24} hour" : "${duration.inHours} hours")} ${duration.inMinutes-duration.inHours*60 == 0 ? "" : "${duration.inMinutes-duration.inHours*60} minutes"} ${detail ?? ""} ";
   }
   
     @override
@@ -43,12 +52,33 @@ class Event extends DataView{
   
   @override
   String? getTime() {
-    return "${start.day}/${start.month}/${start.year} \n${start.hour == 0 ? "" : (start.hour == 1 ? "${start.hour} hour" : "${start.hour}")}:${start.minute == 0 ? "" : "${start.minute}"}\n${duration.inDays == 0 ? "" : (duration.inDays == 1 ? "${duration.inDays} day" : "${duration.inDays} days")} ${duration.inHours == 0 ? "" : (duration.inHours == 1 ? "${duration.inHours} hour" : "${duration.inHours} hours")} ${duration.inMinutes == 0 ? "" : "${duration.inMinutes} minutes"}";
+    return "${start.day}/${start.month}/${start.year} \n${start.hour == 0 ? "" : (start.hour == 1 ? "${start.hour} hour" : "${start.hour}")}:${start.minute == 0 ? "" : "${start.minute}"}\n${duration.inDays == 0 ? "" : (duration.inDays == 1 ? "${duration.inDays} day" : "${duration.inDays} days")} ${duration.inHours-duration.inDays*24 == 0 ? "" : (duration.inHours-duration.inDays*24 == 1 ? "${duration.inHours} hour" : "${duration.inHours} hours")} ${duration.inMinutes-duration.inHours*60 == 0 ? "" : "${duration.inMinutes-duration.inHours*60} minutes"}";
+  }
+  
+  @override
+  void setAuthor(String s) {
+    authorDetails=s;
+  }
+  
+  @override
+  void setDesc(String s) {
+    detail=s;
+  }
+  
+  @override
+  void setName(String s) {
+    name=s;
+  }
+  
+  @override
+  void setTime(DateTime s, DateTime e) {
+    start=s;
+    duration=e.difference(s);
   }
 }
 
 class Calender {
-  List<Event> event = [];
+  static List<Event> event = [];
 
   Calender({this.event = const <Event>[]});
 
@@ -63,7 +93,7 @@ class Calender {
   }
 
   List<Widget> getListCard(BuildContext context) {
-    return event.map<Widget>((x) {
+    return event.map<Widget>((Event x) {
       return TextButton(
         onPressed:() {
                     NavDrawer.setThePage(context,  MaterialPageRoute<void>(builder: (context){return MyPage(body:  ViewWidget(v:x));}));
@@ -153,38 +183,38 @@ List<Widget> getsmallListCard(BuildContext context) {
     }).toList();
   }
 
-  // void fetchData() {
-  //   event = [
-  //     Event(
-  //       name: "Event1"*90,
-  //       duration: Duration(days: 0, hours: 1, minutes: 30),
-  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-  //     ),
-  //     Event(
-  //       name: "Event1"*90,
-  //       duration: Duration(days: 0, hours: 1, minutes: 30),
-  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-  //     ),
-  //     Event(
-  //       name: "Event1"*90,
-  //       duration: Duration(days: 0, hours: 1, minutes: 30),
-  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-  //     ),
-  //     Event(
-  //       name: "Event1",
-  //       duration: Duration(days: 0, hours: 1, minutes: 30),
-  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-  //     ),
-  //     Event(
-  //       name: "Event1",
-  //       duration: Duration(days: 0, hours: 1, minutes: 30),
-  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-  //     ),
-  //     Event(
-  //       name: "Event1",
-  //       duration: Duration(days: 0, hours: 1, minutes: 30),
-  //       start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
-  //     ),
+  void fetchData() {
+    event = [
+      Event(
+        name: "Event1"*90,
+        duration: Duration(days: 0, hours: 1, minutes: 30),
+        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+      ),
+      Event(
+        name: "Event1"*90,
+        duration: Duration(days: 0, hours: 1, minutes: 30),
+        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+      ),
+      Event(
+        name: "Event1"*90,
+        duration: Duration(days: 0, hours: 1, minutes: 30),
+        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+      ),
+      Event(
+        name: "Event1",
+        duration: Duration(days: 0, hours: 1, minutes: 30),
+        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+      ),
+      Event(
+        name: "Event1",
+        duration: Duration(days: 0, hours: 1, minutes: 30),
+        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+      ),
+      Event(
+        name: "Event1",
+        duration: Duration(days: 0, hours: 1, minutes: 30),
+        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+      ),
       
   //   ];
   // }
@@ -270,5 +300,9 @@ List<Widget> getsmallListCard(BuildContext context) {
       print('addEvent error: $ex');
       rethrow;
     }
+  }
+  static void addData(Event v)
+  {
+    Calender.event.add(v);
   }
 }

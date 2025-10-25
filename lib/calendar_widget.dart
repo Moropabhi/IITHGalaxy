@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iithgalaxy/edit_widget.dart';
 import 'package:iithgalaxy/navdrawer.dart';
 import 'calender.dart';
 import 'myPage.dart';
@@ -29,7 +30,17 @@ class _CalenderWidget extends State<CalenderWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+              children: [ElevatedButton(onPressed: (){
+                var v = Event(
+        name: "Event1",
+        duration: Duration(days: 0, hours: 1, minutes: 30),
+        start: DateTime(2025, 9, 7, 17, 30),authorDetails:"hike"
+      );
+                NavDrawer.setThePage(context, MaterialPageRoute<void>(builder: (context){return MyPage(body:  EditWidget());}));
+              }, child: Text("Add")),]
+              ),
         ]+c.getListCard(context),
       ),
     );

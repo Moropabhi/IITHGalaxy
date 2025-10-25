@@ -8,7 +8,13 @@ abstract class DataView{
   String getName();
   String? getTime();
   String getDesc();
+  void setAuthor(String s);
+  void setName(String s);
+  void setTime(DateTime s, DateTime e);
+  void setDesc(String s);
 }
+
+enum DataType{calenderType,iith_SpecialType,opinionsType}
 
 class ViewWidget extends StatefulWidget {
   final DataView v;
