@@ -153,7 +153,7 @@ class IITHSpecial {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
-              color: const Color.fromARGB(255, 58, 58, 58),
+              color: const Color.fromARGB(255, 158, 58, 230),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 margin: EdgeInsets.all(10),
@@ -172,12 +172,12 @@ class IITHSpecial {
                     ),
                     Text(
                       "${wrapUp(x.name,30)} \nby ${wrapUp(x.authorDetails,30)}",
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
+                      style: TextStyle(color: const Color.fromARGB(255, 137, 245, 87)),
                     ),
                     Text(
                       wrapUp(x.detail,300),
                       textAlign: TextAlign.justify,
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
+                      style: TextStyle(color: const Color.fromARGB(255, 235, 116, 112)),
                     ),
                   ],
                 ),

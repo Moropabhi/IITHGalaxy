@@ -24,7 +24,7 @@ class _HomeBody extends State<HomeBody>
 Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: const Color.fromARGB(255, 3, 2, 1),
           //image:DecorationImage(fit: BoxFit.fill,image:  AssetImage(weather)) ,
         ),
         child: Column(

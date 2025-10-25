@@ -105,7 +105,7 @@ class Calender {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
-              color: const Color.fromARGB(255, 58, 58, 58),
+              color: const Color.fromARGB(255, 113, 29, 230),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 margin: EdgeInsets.all(10),
@@ -116,19 +116,19 @@ class Calender {
                     Text(
                       "${x.start.day}/${x.start.month}/${x.start.year}",
                       style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 47, 255),
+                        color: const Color.fromARGB(255, 33, 168, 18),
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         ),
                     ),
                     Text(
                       "${x.name} (${strEvent[x.type.index]})",
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
+                      style: TextStyle(color: const Color.fromARGB(255, 235, 75, 237)),
                     ),
                     Text(
                       x.getTime()??'',
                       textAlign: TextAlign.justify,
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 188, 188)),
+                      style: TextStyle(color: const Color.fromARGB(255, 248, 248, 245)),
                     ),
                   ],
                 ),
@@ -201,6 +201,17 @@ List<Widget> getsmallListCard(BuildContext context) {
           final author = (data['authorDetails'] ?? data['author'] ?? '').toString();
           final detail = data['detail']?.toString();
 
+          final typeStr = (data['type'] ?? 'Others').toString();
+          EventType type = EventType.Others;
+
+          for (int i = 0; i < strEvent.length; i++) {
+            if (typeStr.toLowerCase() == strEvent[i].toLowerCase()) {
+              type = EventType.values[i];
+              break;
+            }
+          }
+
+
           DateTime start;
           final s = data['start'];
           if (s is Timestamp) {
@@ -230,6 +241,7 @@ List<Widget> getsmallListCard(BuildContext context) {
             start: start,
             duration: duration,
             detail: detail,
+            type: type,
           );
         }).toList();
       } catch (e) {
@@ -256,6 +268,7 @@ List<Widget> getsmallListCard(BuildContext context) {
         'name': e.name,
         'authorDetails': e.authorDetails,
         'detail': e.detail ?? '',
+        'type': strEvent[e.type.index],
         'start': Timestamp.fromDate(e.start),
         'durationMinutes': e.duration.inMinutes,
         'createdAt': FieldValue.serverTimestamp(),
