@@ -101,17 +101,17 @@ class _EditWidget extends State<EditWidget> {
           SizedBox(height: 10),
           DropdownMenu(
             requestFocusOnTap: true,
-            label: Text("Type",style: TextStyle(
-              color: const Color.fromARGB(255, 255, 155, 191)
-            ),),
-            textStyle: TextStyle(
-              color: const Color.fromARGB(255, 255, 155, 191)
-            ),
-            dropdownMenuEntries: x.map((i){
-              return DropdownMenuEntry(
-                value: x.indexOf(i),
-                label: i,
-              );}).toList(),
+            // label: Text("Type",style: TextStyle(
+            //   color: const Color.fromARGB(255, 255, 155, 191)
+            // ),),
+            // textStyle: TextStyle(
+            //   color: const Color.fromARGB(255, 255, 155, 191)
+            // ),
+            // dropdownMenuEntries: x.map((i){
+            //   return DropdownMenuEntry(
+            //     value: x.indexOf(i),
+            //     label: i,
+            //   );}).toList(),
           
             label: Text("Type"),
             dropdownMenuEntries: x.map((i) {
